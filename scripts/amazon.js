@@ -44,7 +44,7 @@ products.forEach(
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart js-add-to-cart-text-${product.id}">
             <img src="images/icons/checkmark.png">
             Added
           </div>
@@ -72,6 +72,7 @@ addToCartBtn.forEach(
         jsNumSelect.forEach( jsSelect => quantity = Number(jsSelect.value))
        addToCart(productId, quantity);
        updateCartIconQuantity();
+       updateAddToCartText(productId);
       }
 
       
@@ -82,4 +83,21 @@ function updateCartIconQuantity() {
   let cartQuantiy = 0;
   cart.forEach( cartItem => cartQuantiy += cartItem.quantity)
   document.querySelector('.js-cart-icon-quantity').innerHTML = cartQuantiy;
+}
+function updateAddToCartText (productId) {
+const addToCartText = document.querySelectorAll(`.js-add-to-cart-text-${productId}`);
+addToCartText.forEach(
+  text => {
+    text.style.opacity = 1;
+    let timer;
+    if (timer) {
+      clearTimeout(timer);
+    } else {
+    timer = setTimeout(
+      ()=> {
+        text.style.opacity = 0;
+      }, 1000 
+    )}
+  }
+)
 }
