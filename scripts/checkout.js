@@ -1,5 +1,5 @@
 import {products} from '../data/products.js'
-import {cart}  from '../data/cart.js'
+import {cart, removeProductFromCart}  from '../data/cart.js'
 import { formatCurrency } from './utils/utility.js';
 let generateCheckoutHtml = '';
 cart.forEach(
@@ -7,7 +7,7 @@ cart.forEach(
         let productId = cartItem.productId;
         let matchingProduct = products.find(product => productId === product.id)
         generateCheckoutHtml += `
-        <div class="cart-item-container">
+        <div class="cart-item-container js-product-container-${matchingProduct.id}">
             <div class="delivery-date">
               Delivery date: Tuesday, June 21
             </div>
@@ -30,7 +30,8 @@ cart.forEach(
                   <span class="update-quantity-link link-primary">
                     Update
                   </span>
-                  <span class="delete-quantity-link link-primary js-product-delete-btn-${cartItem.productId}">
+                  <span class="delete-quantity-link link-primary js-product-delete-btn"
+                  data-product-id="${cartItem.productId}">
                     Delete
                   </span>
                 </div>
@@ -43,7 +44,7 @@ cart.forEach(
                 <div class="delivery-option">
                   <input type="radio" checked
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${matchingProduct.id}">
                   <div>
                     <div class="delivery-option-date">
                       Tuesday, June 21
@@ -56,7 +57,7 @@ cart.forEach(
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${matchingProduct.id}">
                   <div>
                     <div class="delivery-option-date">
                       Wednesday, June 15
@@ -69,7 +70,7 @@ cart.forEach(
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${matchingProduct.id}">
                   <div>
                     <div class="delivery-option-date">
                       Monday, June 13
@@ -86,3 +87,15 @@ cart.forEach(
     }
 )
 document.querySelector('.js-checkout-product-container').innerHTML = generateCheckoutHtml;
+
+const productDeleteBtn = document.querySelectorAll('.js-product-delete-btn');
+productDeleteBtn.forEach(
+  deleteBtn => {
+    deleteBtn.addEventListener('click', ()=>{
+        const productId = deleteBtn.dataset.productId;
+        removeProductFromCart(productId);
+        const container = document.querySelectorAll(`.js-product-container-${productId}`);
+        container.forEach(container => container.remove())            
+    })
+  }
+)
