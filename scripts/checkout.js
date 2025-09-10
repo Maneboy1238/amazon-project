@@ -2,8 +2,10 @@ import {products} from '../data/products.js'
 import {cart, removeProductFromCart}  from '../data/cart.js'
 import { formatCurrency } from './utils/utility.js';
 let generateCheckoutHtml = '';
+let checkoutItemQuantity = 0;
 cart.forEach(
     cartItem => {
+        checkoutItemQuantity += cartItem.quantity;
         let productId = cartItem.productId;
         let matchingProduct = products.find(product => productId === product.id)
         generateCheckoutHtml += `
@@ -95,7 +97,11 @@ productDeleteBtn.forEach(
         const productId = deleteBtn.dataset.productId;
         removeProductFromCart(productId);
         const container = document.querySelectorAll(`.js-product-container-${productId}`);
-        container.forEach(container => container.remove())            
+        container.forEach(container => container.remove())
+        checkoutItemQuantity = 0;            
+        cart.forEach(cartItem => checkoutItemQuantity += cartItem.quantity);
+        document.querySelector('.js-checkout-items-quantity').innerHTML = `${checkoutItemQuantity} items`;
     })
   }
 )
+document.querySelector('.js-checkout-items-quantity').innerHTML = `${checkoutItemQuantity} items`;
