@@ -1,6 +1,6 @@
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/utility.js';
-import {cart, addToCart} from '../data/cart.js'
+import {cart, addToCart, calcCartQuantity} from '../data/cart.js'
 let generateAmazonHtml = '';
 products.forEach(
     product => {
@@ -71,19 +71,15 @@ addToCartBtn.forEach(
 
         jsNumSelect.forEach( jsSelect => quantity = Number(jsSelect.value))
        addToCart(productId, quantity);
-       updateCartIconQuantity();
        updateAddToCartText(productId);
+       document.querySelector('.js-cart-icon-quantity').innerHTML = calcCartQuantity(cart);
       }
 
       
     )
   }
 )
-function updateCartIconQuantity() {
-  let cartQuantiy = 0;
-  cart.forEach( cartItem => cartQuantiy += cartItem.quantity)
-  document.querySelector('.js-cart-icon-quantity').innerHTML = cartQuantiy;
-}
+
 function updateAddToCartText (productId) {
 const addToCartText = document.querySelectorAll(`.js-add-to-cart-text-${productId}`);
 addToCartText.forEach(
