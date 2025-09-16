@@ -36,3 +36,9 @@ export function calcCartQuantity (cart) {
     cart.forEach( cartItem => cartQuantity += cartItem.quantity);
     return cartQuantity;
 }
+export function updateCartQuantityToNewQuantity(productId, newQuantity) {
+    let matchingItem = cart.find(cartItem => productId === cartItem.productId)
+    matchingItem.quantity = newQuantity;
+    
+    saveCartToStorage();
+}
