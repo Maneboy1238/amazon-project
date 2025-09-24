@@ -3,6 +3,7 @@ import {cart, removeProductFromCart, calcCartQuantity, updateCartQuantityToNewQu
 import { formatCurrency } from '../utils/utility.js';
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryoptions.js'
 import { renderPaymentSummary } from './paymentSummary.js';
+import { renderCheckoutHeader } from './checkout-header.js';
 import dayjs from 'dayjs'
 export function renderOrderSummary (){
 let generateCheckoutHtml = '';
@@ -102,13 +103,13 @@ productDeleteBtn.forEach(
         const productId = deleteBtn.dataset.productId;
         removeProductFromCart(productId);
         const container = document.querySelectorAll(`.js-product-container-${productId}`);
-        container.forEach(container => container.remove())
-        document.querySelector('.js-checkout-items-quantity').innerHTML = `${calcCartQuantity()} items`;
         renderOrderSummary();
+        renderPaymentSummary();
+        renderCheckoutHeader();
     })
   }
 )
-document.querySelector('.js-checkout-items-quantity').innerHTML = `${calcCartQuantity()} items`;
+
 const updateBtn = document.querySelectorAll('.js-product-update-btn');
 updateBtn.forEach(
   updateBtn => {
@@ -143,11 +144,10 @@ updateBtn.forEach(
       })
           updateCartQuantityToNewQuantity(productId, newQuantity);
           
-          productQuantity.forEach(cartQuantity => cartQuantity.style.display = 'initial')
-          /* recalculating the header */
-         document.querySelector('.js-checkout-items-quantity').innerHTML = `${calcCartQuantity()} items`;
+          productQuantity.forEach(cartQuantity => cartQuantity.style.display = 'initial');
           renderOrderSummary();
           renderPaymentSummary();
+          renderCheckoutHeader();
         })
       })
 
