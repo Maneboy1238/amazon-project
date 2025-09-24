@@ -103,12 +103,12 @@ productDeleteBtn.forEach(
         removeProductFromCart(productId);
         const container = document.querySelectorAll(`.js-product-container-${productId}`);
         container.forEach(container => container.remove())
-        document.querySelector('.js-checkout-items-quantity').innerHTML = `${calcCartQuantity(cart)} items`;
+        document.querySelector('.js-checkout-items-quantity').innerHTML = `${calcCartQuantity()} items`;
         renderOrderSummary();
     })
   }
 )
-document.querySelector('.js-checkout-items-quantity').innerHTML = `${calcCartQuantity(cart)} items`;
+document.querySelector('.js-checkout-items-quantity').innerHTML = `${calcCartQuantity()} items`;
 const updateBtn = document.querySelectorAll('.js-product-update-btn');
 updateBtn.forEach(
   updateBtn => {
@@ -145,7 +145,7 @@ updateBtn.forEach(
           
           productQuantity.forEach(cartQuantity => cartQuantity.style.display = 'initial')
           /* recalculating the header */
-         document.querySelector('.js-checkout-items-quantity').innerHTML = `${calcCartQuantity(cart)} items`;
+         document.querySelector('.js-checkout-items-quantity').innerHTML = `${calcCartQuantity()} items`;
           renderOrderSummary();
           renderPaymentSummary();
         })
