@@ -1,15 +1,16 @@
-import {products} from '../../data/products.js'
+import {products, getProduct} from '../../data/products.js'
 import {cart, removeProductFromCart, calcCartQuantity, updateCartQuantityToNewQuantity, updateDeliveryOption}  from '../../data/cart.js'
 import { formatCurrency } from '../utils/utility.js';
-import {deliveryOptions} from '../../data/deliveryoptions.js'
+import {deliveryOptions, getDeliveryOption} from '../../data/deliveryoptions.js'
+import { renderPaymentSummary } from './paymentSummary.js';
 import dayjs from 'dayjs'
 export function renderOrderSummary (){
 let generateCheckoutHtml = '';
 cart.forEach(
     cartItem => {
         let productId = cartItem.productId;
-        let matchingProduct = products.find(product => productId === product.id);
-        let deliveryOption = deliveryOptions.find(option => option.id === cartItem.deliveryOptionId)
+        let matchingProduct = getProduct(productId);
+        const deliveryOption = getDeliveryOption(cartItem)
         const today = dayjs();
         const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
         const dateString = deliveryDate.format('dddd MMMM, D');
@@ -103,6 +104,7 @@ productDeleteBtn.forEach(
         const container = document.querySelectorAll(`.js-product-container-${productId}`);
         container.forEach(container => container.remove())
         document.querySelector('.js-checkout-items-quantity').innerHTML = `${calcCartQuantity(cart)} items`;
+        renderOrderSummary();
     })
   }
 )
@@ -145,7 +147,7 @@ updateBtn.forEach(
           /* recalculating the header */
          document.querySelector('.js-checkout-items-quantity').innerHTML = `${calcCartQuantity(cart)} items`;
           renderOrderSummary();
-
+          renderPaymentSummary();
         })
       })
 
@@ -159,6 +161,7 @@ deliveryOptionInput.forEach(
       const {productId, deliveryOptionId} = element.dataset;
       updateDeliveryOption(deliveryOptionId, productId);
       renderOrderSummary();
+      renderPaymentSummary();
     }
     )
   }
