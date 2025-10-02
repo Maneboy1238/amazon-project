@@ -1,7 +1,7 @@
 import {products, getProduct} from '../../data/products.js'
 import {cart, removeProductFromCart, calcCartQuantity, updateCartQuantityToNewQuantity, updateDeliveryOption}  from '../../data/cart.js'
 import { formatCurrency } from '../utils/utility.js';
-import {deliveryOptions, getDeliveryOption} from '../../data/deliveryoptions.js'
+import {deliveryOptions, getDeliveryDate, getDeliveryOption} from '../../data/deliveryoptions.js'
 import { renderPaymentSummary } from './paymentSummary.js';
 import { renderCheckoutHeader } from './checkout-header.js';
 import dayjs from 'dayjs'
@@ -11,11 +11,9 @@ cart.forEach(
     cartItem => {
         let productId = cartItem.productId;
         let matchingProduct = getProduct(productId);
-        const deliveryOption = getDeliveryOption(cartItem)
-        const today = dayjs();
-        const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
-        const dateString = deliveryDate.format('dddd MMMM, D');
-        generateCheckoutHtml += `
+        const deliveryOption = getDeliveryOption(cartItem);
+        const dateString = getDeliveryDate(deliveryOption);
+     generateCheckoutHtml += `
         <div class="cart-item-container js-product-container-${matchingProduct.id}">
             <div class="delivery-date">
               Delivery date: ${dateString}
@@ -67,9 +65,7 @@ function generateDeliveryOptions (matchingProduct, cartItem) {
   deliveryOptions.forEach(
     
     deliveryOption => {
-      const today = dayjs();
-      const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
-      const dateString = deliveryDate.format('dddd MMMM, D');
+      const dateString = getDeliveryDate(deliveryOption);
       const priceString = deliveryOption.priceCents === 0
       ? 'FREE'
       : `$${formatCurrency(deliveryOption.priceCents)} -`
