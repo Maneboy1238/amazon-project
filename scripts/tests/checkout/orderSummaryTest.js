@@ -1,5 +1,7 @@
 import { renderOrderSummary } from "../../checkout/orderSummary";
 import { getCart } from "../../../data/cart";
+import { products } from "../../../data/products";
+import {formatCurrency} from '../../utils/utility.js'
 describe('test suite: renderOrderSummary', ()=> {
 
         const productId1 = "e43638ce-6aa0-4b85-b27f-e1d07eb678c6";
@@ -31,18 +33,29 @@ describe('test suite: renderOrderSummary', ()=> {
         );
         getCart();
         renderOrderSummary();
+    });
+    afterEach(()=>  {
+        testContainer.innerHTML= '';
     })
     it('checking the generation of our cart in the checkout page', ()=> {
         expect(document.querySelectorAll('.js-cart-item-container').length).toEqual(2);
   //      expect(document.querySelector(`.js-iproduct-quantity-${productId1}`)).toContain('Quantity: 2')
-        testContainer.innerHTML = '';
     });
     it('removes a product', ()=> {
       document.querySelector(`.js-delete-link-${productId1}`).click();  
       expect(document.querySelectorAll('.js-cart-item-container').length).toEqual(1);
       expect(document.querySelector(`.js-product-container-${productId1}`)).toEqual(null);
       expect(document.querySelector(`.js-product-container-${productId2}`)).not.toEqual(null);
-      testContainer.innerHTML= '';
+      
 
+
+    })
+    it('checks if it displays the correct name', ()=> {
+        expect(document.querySelector(`.js-product-name-${productId1}`).innerText).toEqual( products[0].name  )
+        expect(document.querySelector(`.js-product-name-${productId2}`).innerText).toEqual( products[1].name  )
+    });
+    it('checks prices in checkout page', ()=> {
+        expect(document.querySelector(`.js-product-price-${productId1}`).innerText).toEqual( `$${formatCurrency(products[0].priceCents)}`)
+        expect(document.querySelector(`.js-product-price-${productId2}`).innerText).toEqual(`$${formatCurrency(products[1].priceCents)}`)
     })
 })

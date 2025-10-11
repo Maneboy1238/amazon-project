@@ -1,8 +1,11 @@
 import {cart, getCart, addToCart} from '../../../data/cart.js';
 
 describe('test suite: addToCart', () => {
+    beforeEach(()=> {
+    spyOn(localStorage, 'setItem');
+    })
     it('add a new product to the cart', () => {
-        spyOn(localStorage, 'setItem');
+        
         spyOn(localStorage, 'getItem').and.callFake(
             () => {
                 return JSON.stringify([]);
@@ -15,9 +18,14 @@ describe('test suite: addToCart', () => {
         expect(localStorage.setItem).toHaveBeenCalledTimes(2);
         expect(cart[1].productId).toEqual('15b6fc6f-327a-4ec4-896f-486349e85a3d');
         //expect(cart[0].quantity).toEqual(1);
+        expect(localStorage.setItem).toHaveBeenCalledWith('cart', JSON.stringify([{
+            productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+            deliveryOptionId: '1'
+        }
+
+        ]) )
     });
     it('test for an existing product', ()=> {
-        spyOn(localStorage, 'setItem');
         spyOn(localStorage, 'getItem').and.callFake(
             () => {
                 return JSON.stringify([{
@@ -34,6 +42,11 @@ describe('test suite: addToCart', () => {
         expect(localStorage.setItem).toHaveBeenCalledTimes(2);
         expect(cart[1].productId).toEqual('15b6fc6f-327a-4ec4-896f-486349e85a3d');
         //expect(cart[0].).toEqual(2);
-
+        expect(localStorage.setItem).toHaveBeenCalledWith('cart', JSON.stringify([{
+            productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+            quantity: null,
+            deliveryOptionId: "1"
+        }
+        ]))
     })
 })
