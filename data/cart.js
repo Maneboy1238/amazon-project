@@ -1,5 +1,6 @@
-
-export let  cart = JSON.parse(localStorage.getItem('cart'));
+export let cart;
+export function getCart() {
+      cart = JSON.parse(localStorage.getItem('cart'));
 if (!cart) {
     cart =   [
         {
@@ -16,7 +17,7 @@ if (!cart) {
 
 }
 
-
+}
 export function addToCart (productId, quantity) {
     
    let matchingItem = cart.find(
