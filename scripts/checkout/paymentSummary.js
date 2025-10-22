@@ -6,15 +6,25 @@ export function renderPaymentSummary () {
   let html = '';
     let productPriceCents = 0;
     let shippingPriceCents = 0;
+    let productId;
+    let deliveryOptionId;
     cart.forEach(
         
         cartItem => {
+          const productIds =[];
+          const deliveryOptionIds = [];
             const  matchingProduct = getProduct(cartItem.productId);
             productPriceCents += matchingProduct.priceCents * cartItem.quantity;
-            const deliveryOption = getDeliveryOption(cartItem);
+            const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
             shippingPriceCents += deliveryOption.priceCents;
-
-            
+            productIds.push(cartItem.productId);
+            deliveryOptionIds.push(cartItem.deliveryOptionId);
+            for (let i = 0; i < productIds; i++) {
+              productId = productIds[i]
+            }
+            for (let i = 0; i < deliveryOptionIds; i++ ) {
+              deliveryOptionId = deliveryOptionIds[i]
+            }
         }
     )
     const totalBeforeTax = productPriceCents + shippingPriceCents;
@@ -33,7 +43,7 @@ export function renderPaymentSummary () {
 
           <div class="payment-summary-row">
             <div>Shipping &amp; handling:</div>
-            <div class="payment-summary-money">$${formatCurrency(shippingPriceCents)}</div>
+            <div class="payment-summary-money js-product-shipping-${productId}-${deliveryOptionId}">$${formatCurrency(shippingPriceCents)}</div>
           </div>
 
           <div class="payment-summary-row subtotal-row">
@@ -57,5 +67,6 @@ export function renderPaymentSummary () {
     `;
 
     document.querySelector('.payment-summary').innerHTML = html;
-
-}
+    console.log(productId);
+    console.log(deliveryOptionId);
+  }

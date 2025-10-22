@@ -45,6 +45,7 @@ function saveCartToStorage() {
 export function calcCartQuantity () {
     let cartQuantity = 0;
     cart.forEach( cartItem => cartQuantity += cartItem.quantity);
+    console.log(cart);
     return cartQuantity;
 }
 export function updateCartQuantityToNewQuantity(productId, newQuantity) {
@@ -55,6 +56,8 @@ export function updateCartQuantityToNewQuantity(productId, newQuantity) {
 }
 export function updateDeliveryOption (deliveryOptionId, productId) {
     let matchingItem = cart.find(cartItem => cartItem.productId === productId);
+    if (['1','2','3'].includes(deliveryOptionId)) {
     matchingItem.deliveryOptionId = deliveryOptionId;
     saveCartToStorage();
+    }
 }

@@ -1,7 +1,8 @@
 import { renderOrderSummary } from "../../checkout/orderSummary";
-import { getCart } from "../../../data/cart";
+import { getCart, cart } from "../../../data/cart";
 import { products } from "../../../data/products";
-import {formatCurrency} from '../../utils/utility.js'
+import {formatCurrency} from '../../utils/utility.js';
+import { renderPaymentSummary } from "../../checkout/paymentSummary.js";
 describe('test suite: renderOrderSummary', ()=> {
 
         const productId1 = "e43638ce-6aa0-4b85-b27f-e1d07eb678c6";
@@ -33,6 +34,7 @@ describe('test suite: renderOrderSummary', ()=> {
         );
         getCart();
         renderOrderSummary();
+        renderPaymentSummary();
     });
     afterEach(()=>  {
         testContainer.innerHTML= '';
@@ -57,5 +59,9 @@ describe('test suite: renderOrderSummary', ()=> {
     it('checks prices in checkout page', ()=> {
         expect(document.querySelector(`.js-product-price-${productId1}`).innerText).toEqual( `$${formatCurrency(products[0].priceCents)}`)
         expect(document.querySelector(`.js-product-price-${productId2}`).innerText).toEqual(`$${formatCurrency(products[1].priceCents)}`)
+    });
+    it('test on our delivery options', ()=> {
+        document.querySelector(`.js-input-delivery-option-${productId1}-${cart[0].deliveryOptionId}`).checked;
+        //expect(document.querySelector(`.js-product-shipping-${productId1}-${cart[0].deliveryOptionId}`).innerText).toContain('$4.99')
     })
 })

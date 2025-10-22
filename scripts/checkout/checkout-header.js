@@ -1,6 +1,8 @@
-import {cart, calcCartQuantity} from "../../data/cart.js"
+import {cart,getCart, calcCartQuantity} from "../../data/cart.js"
+console.log(cart)
 export function renderCheckoutHeader() {
-const cartQuantity = calcCartQuantity();
+getCart();
+  const cartQuantity = calcCartQuantity();
 
  let  html = `
     <div class="header-content">

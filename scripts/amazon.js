@@ -1,6 +1,6 @@
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/utility.js';
-import {cart, addToCart, calcCartQuantity} from '../data/cart.js'
+import {cart, addToCart, calcCartQuantity, getCart} from '../data/cart.js'
 let generateAmazonHtml = '';
 products.forEach(
     product => {
@@ -64,6 +64,7 @@ addToCartBtn.forEach(
   btn => {
     btn.addEventListener('click',
       () => {
+        getCart();
         const productId = btn.dataset.productId;
         let quantity;
 

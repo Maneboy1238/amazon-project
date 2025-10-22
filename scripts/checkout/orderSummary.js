@@ -11,7 +11,7 @@ cart.forEach(
     cartItem => {
         let productId = cartItem.productId;
         let matchingProduct = getProduct(productId);
-        const deliveryOption = getDeliveryOption(cartItem);
+        const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
         const dateString = getDeliveryDate(deliveryOption);
      generateCheckoutHtml += `
         <div class="cart-item-container js-cart-item-container js-product-container-${matchingProduct.id}">
@@ -73,7 +73,7 @@ function generateDeliveryOptions (matchingProduct, cartItem) {
       html += `
       <div class="delivery-option">
                   <input type="radio"
-                    class="delivery-option-input js-input-delivery-option"
+                    class="delivery-option-input js-input-delivery-option js-input-delivery-option-${matchingProduct.id}-${deliveryOption.id}"
                     name="delivery-option-${matchingProduct.id}" 
                     data-product-id="${matchingProduct.id}" data-delivery-option-id="${deliveryOption.id}" ${isChecked ? 'checked' : ''}>
                   <div>
