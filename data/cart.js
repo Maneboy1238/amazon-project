@@ -31,7 +31,6 @@ export function addToCart (productId, quantity) {
         quantity,
         deliveryOptionId: '1'
     })}
- console.log(cart);
  saveCartToStorage();   
 }
 export function removeProductFromCart (productId) {
@@ -45,7 +44,6 @@ function saveCartToStorage() {
 export function calcCartQuantity () {
     let cartQuantity = 0;
     cart.forEach( cartItem => cartQuantity += cartItem.quantity);
-    console.log(cart);
     return cartQuantity;
 }
 export function updateCartQuantityToNewQuantity(productId, newQuantity) {
