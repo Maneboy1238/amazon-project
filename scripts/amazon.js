@@ -1,6 +1,8 @@
-import {products} from '../data/products.js';
+import {products, loadProducts} from '../data/products.js';
 import {formatCurrency} from './utils/utility.js';
 import {cart, addToCart, calcCartQuantity, getCart} from '../data/cart.js'
+loadProducts(renderProductsGrid);
+function renderProductsGrid() {
 let generateAmazonHtml = '';
 products.forEach(
     product => {
@@ -97,4 +99,5 @@ addToCartText.forEach(
     )}
   }
 )
+}
 }

@@ -3,7 +3,7 @@ export function getProduct (productId) {
   let matchingProduct = products.find(product => product.id === productId)
   return matchingProduct
 }
-class Product {
+export class Product {
   id;
   image;
   name;
@@ -26,7 +26,7 @@ class Product {
     return '';
   }
 }
-class Clothing extends Product {
+export class Clothing extends Product {
   sizeChartLink;
   constructor(productDetails) {
     super(productDetails);
@@ -36,7 +36,7 @@ class Clothing extends Product {
     return `<a href="${this.sizeChartLink}" target="_blank"> size chart </a>`
   }
 }
-class Appliance extends Product {
+export class Appliance extends Product {
   instructionsLink;
   warrantyLink;
   constructor(productDetails) {
@@ -50,6 +50,28 @@ class Appliance extends Product {
     `
   }
 }
+export let products = [];
+
+export function loadProducts(fun) {
+  const xhr = new XMLHttpRequest();
+  xhr.addEventListener('load', ()=> {
+    products = JSON.parse(xhr.response).map(
+  product => {
+    if (product.type === 'clothing') {
+      return new Clothing(product);
+    } else if (product.type === 'appliance') {
+      return new Appliance(product);
+    }
+    return new Product(product) 
+  }
+);
+fun();
+console.log('load products')
+  })
+  xhr.open('GET','https://supersimplebackend.dev/products');
+  xhr.send();
+}
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -715,13 +737,5 @@ export const products = [
       "mens"
     ]
   }
-].map(
-  product => {
-    if (product.type === 'clothing') {
-      return new Clothing(product);
-    } else if (product.type === 'appliance') {
-      return new Appliance(product);
-    }
-    return new Product(product) 
-  }
-);
+]
+*/
