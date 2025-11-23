@@ -1,6 +1,6 @@
 import { renderOrderSummary } from "../../checkout/orderSummary";
 import { getCart, cart } from "../../../data/cart";
-import { loadProducts, products } from "../../../data/products";
+import { loadProducts, products, loadProductsFetch } from "../../../data/products";
 import {formatCurrency} from '../../utils/utility.js';
 import { renderPaymentSummary } from "../../checkout/paymentSummary.js";
 describe('test suite: renderOrderSummary', ()=> {
@@ -9,8 +9,8 @@ describe('test suite: renderOrderSummary', ()=> {
         const productId2 = "15b6fc6f-327a-4ec4-896f-486349e85a3d";
         const testContainer = document.querySelector('.js-test-container');
     beforeAll((done)=> {
-        loadProducts(()=> {
-            done();
+        loadProductsFetch().then(()=> {
+            done()
         })
     })    
     beforeEach(()=> {
