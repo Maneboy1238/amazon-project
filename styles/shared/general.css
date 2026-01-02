@@ -99,3 +99,107 @@ select:focus,
 input:focus {
   outline: 2px solid rgb(255, 153, 0);
 }
+/* ===============================
+   CENTER THE WRAPPER (RESPONSIVE)
+   =============================== */
+.wrapper {
+  width: clamp(140px, 30vw, 220px);
+  height: clamp(45px, 10vw, 70px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  background-color: transparent;
+}
+
+/* ===============================
+   CIRCLES (RESPONSIVE SIZE ONLY)
+   =============================== */
+.circle {
+  width: clamp(14px, 3.5vw, 22px);
+  height: clamp(14px, 3.5vw, 22px);
+  position: absolute;
+  border-radius: 50%;
+  background-color: #FF9900; /* Amazon orange */
+  left: 15%;
+  transform-origin: 50%;
+  animation: circle7124 .5s alternate infinite ease;
+}
+
+.circle:nth-child(2) {
+  left: 45%;
+  animation-delay: .2s;
+}
+
+.circle:nth-child(3) {
+  left: auto;
+  right: 15%;
+  animation-delay: .3s;
+}
+
+/* ===============================
+   SHADOW (RESPONSIVE SIZE ONLY)
+   =============================== */
+.shadow {
+  width: clamp(14px, 3.5vw, 22px);
+  height: clamp(3px, 1vw, 5px);
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  top: clamp(45px, 10vw, 62px);
+  transform-origin: 50%;
+  z-index: -1;
+  left: 15%;
+  filter: blur(1px);
+  animation: shadow046 .5s alternate infinite ease;
+}
+
+.shadow:nth-child(4) {
+  left: 45%;
+  animation-delay: .2s;
+}
+
+.shadow:nth-child(5) {
+  left: auto;
+  right: 15%;
+  animation-delay: .3s;
+}
+
+/* ===============================
+   ? ANIMATIONS (UNTOUCHED)
+   =============================== */
+@keyframes circle7124 {
+  0% {
+    top: 60px;
+    height: 5px;
+    border-radius: 50px 50px 25px 25px;
+    transform: scaleX(1.7);
+  }
+
+  40% {
+    height: 20px;
+    border-radius: 50%;
+    transform: scaleX(1);
+  }
+
+  100% {
+    top: 0%;
+  }
+}
+
+@keyframes shadow046 {
+  0% {
+    transform: scaleX(1.5);
+  }
+
+  40% {
+    transform: scaleX(1);
+    opacity: .7;
+  }
+
+  100% {
+    transform: scaleX(.2);
+    opacity: .4;
+  }
+}

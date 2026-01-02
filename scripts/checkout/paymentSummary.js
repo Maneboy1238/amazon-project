@@ -71,6 +71,10 @@ export function renderPaymentSummary () {
   
     const orderBtn = document.querySelector('.js-place-order');
     orderBtn.addEventListener('click', async ()=> {
+      if (!cart || cart.length <= 0) {
+        alert('Make sure you have items in your cart before placing an order');
+        return;
+      }
       const response = await fetch('https://supersimplebackend.dev/orders', {
         method: 'POST',
         headers: {
@@ -84,7 +88,7 @@ export function renderPaymentSummary () {
       })
       const order = await response.json()
       addOrder(order);
-
+      localStorage.setItem('cart', JSON.stringify([]))
       window.location.href = 'orders.html';
     })
   }

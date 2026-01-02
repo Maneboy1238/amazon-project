@@ -215,3 +215,37 @@
 .quantity-input, .save-quantity-link {
   display: none;
 }
+.order-summary {
+  position: relative;
+  min-height: 60vh;
+}
+/* Empty cart container */
+.no-cartItem-found-container {
+  position: absolute;
+  inset: 0; /* replaces top/left/transform */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Icon + text color (unchanged) */
+.fa-solid,
+.no-item-found-text {
+  color: hsl(0, 0%, 80%);
+}
+
+/* Responsive icon size */
+.fa-solid {
+  font-size: clamp(48px, 8vw, 80px);
+  margin-bottom: 0.75rem;
+}
+
+/* Responsive text */
+.no-item-found-text {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Arial, sans-serif;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+}

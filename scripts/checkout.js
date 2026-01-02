@@ -2,20 +2,14 @@ import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { renderCheckoutHeader } from "./checkout/checkout-header.js";
 import { loadProducts, loadProductsFetch } from "../data/products.js";
-import { loadCart } from "../data/cart.js";
-import "../data/products.js";
-
+import { loadCart, loadCartFetch } from "../data/cart.js";
 async function loadPage() {
     try {
         //throw 'error1'
-    await loadProductsFetch();
-    const value = await new Promise((resolve, reject)=> {
-        //throw 'error 1'
-        loadCart(()=> {
-            resolve('resolve3')
-            //reject('error 1')
-        })
-    })
+        await Promise.all([
+         loadProductsFetch(),
+         loadCartFetch()
+        ])
 } catch(error) {
         console.log(error)
         console.log('unexpected error')
@@ -25,6 +19,7 @@ async function loadPage() {
     renderPaymentSummary();
 }
 loadPage();
+
 /*Promise.all([
     loadProductsFetch(),
 new Promise((resolve)=> {

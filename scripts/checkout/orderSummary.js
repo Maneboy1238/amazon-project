@@ -5,8 +5,27 @@ import {deliveryOptions, getDeliveryDate, getDeliveryOption} from '../../data/de
 import { renderPaymentSummary } from './paymentSummary.js';
 import { renderCheckoutHeader } from './checkout-header.js';
 import dayjs from 'dayjs'
+import { loader } from '../loader.js';
+
+const loaderInstance = new loader('wrapper');
+loaderInstance.showLoader();
+setTimeout(()=> {
+  renderOrderSummary();
+}, 500)
+
 export function renderOrderSummary (){
+  
+
 let generateCheckoutHtml = '';
+if (cart.length <= 0) {
+  generateCheckoutHtml = `
+     <div class="no-cartItem-found-container">
+        <span><i class="fa-solid fa-cart-shopping"></i>
+        </span>
+        <p class="no-item-found-text">No item found in Cart</p>
+    </div>
+  `;
+}
 cart.forEach(
     cartItem => {
         let productId = cartItem.productId;
@@ -60,6 +79,9 @@ cart.forEach(
         `
     }
 )
+document.querySelector('.js-checkout-product-container').innerHTML = generateCheckoutHtml;
+loaderInstance.hideLoader();
+
 function generateDeliveryOptions (matchingProduct, cartItem) {
   let html = '';
   deliveryOptions.forEach(
@@ -90,7 +112,6 @@ function generateDeliveryOptions (matchingProduct, cartItem) {
   )
   return html;
 }
-document.querySelector('.js-checkout-product-container').innerHTML = generateCheckoutHtml;
 
 const productDeleteBtn = document.querySelectorAll('.js-product-delete-btn');
 productDeleteBtn.forEach(

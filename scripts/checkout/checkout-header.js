@@ -1,5 +1,4 @@
 import {cart,getCart, calcCartQuantity} from "../../data/cart.js"
-console.log(cart)
 export function renderCheckoutHeader() {
 getCart();
   const cartQuantity = calcCartQuantity();

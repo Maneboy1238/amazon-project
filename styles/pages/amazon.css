@@ -154,3 +154,77 @@
   padding: 8px;
   border-radius: 50px;
 }
+/* Center container */
+.icon-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+  padding: 10px;
+  width: 90%;
+  max-width: 400px;
+}
+
+/* Icon */
+.fa-solid {
+  color: hsl(0, 0%, 80%);
+  font-size: 50px;
+}
+
+/* No products text */
+.no-products-text {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  color: hsl(0, 0%, 80%);
+  font-size: 20px;
+  margin: 0;
+}
+
+/* Button */
+.view-all-products-btn {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 16px;
+  background-color: transparent;
+  color: hsl(0, 0%, 80%);
+  cursor: pointer;
+  border-radius: 20px;
+  border: 2px solid hsl(0, 0%, 80%);
+  padding: 10px 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.view-all-products-btn:hover {
+  background-color: hsl(0, 0%, 80%);
+  color: #000;
+}
+
+/* RESPONSIVE: scale icon and text */
+@media (max-width: 768px) {
+  .fa-solid {
+    font-size: 40px;
+  }
+  .no-products-text {
+    font-size: 18px;
+  }
+  .view-all-products-btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fa-solid {
+    font-size: 35px;
+  }
+  .no-products-text {
+    font-size: 16px;
+  }
+  .view-all-products-btn {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+}
