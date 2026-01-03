@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview"
-}
-,
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "postbuild": "copyfiles -u 1 \"images/**\" dist/"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "vite": "^7.1.6"
   },
   "devDependencies": {
+    "copyfiles": "^2.4.1",
     "jasmine": "^5.11.0"
   }
 }
