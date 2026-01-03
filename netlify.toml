@@ -4,6 +4,6 @@ command = "npm run build"
 
 [[redirects]]
 from = "/"
-to = "/assets/amazon.html"
+to = "/amazon.html"
 status = 200
 force = true
