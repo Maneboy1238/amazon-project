@@ -1,0 +1,9 @@
+[build]
+publish = "dist"
+command = "npm run build"
+
+[[redirects]]
+from = "/"
+to = "/assets/amazon.html"
+status = 200
+force = true
